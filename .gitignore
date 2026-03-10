@@ -1,0 +1,39 @@
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+.fleet/
+
+# ── Go ────────────────────────────────────────────────────────────────────────
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# ── Bun / Node ────────────────────────────────────────────────────────────────
+node_modules/
+.svelte-kit/
+build/
+dist/
+.env
+.env.local
+.env.*.local
+bun.lockb
+*.lock
+
+# ── SheafLauncher env files (commit these in the demo, gitignore in real apps)
+# sheaf-launcher.env
+# sheaf-launcher-engine.env
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Build Artifact ────────────────────────────────────────────────────────────────────────
+dist/
