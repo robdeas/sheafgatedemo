@@ -10,7 +10,7 @@ web app into a desktop application. A thin Go binary acts as the launcher:
 it spawns the Bun process, authenticates it, and opens the browser. From
 the user's perspective it behaves like a native app — double-click and go.
 
-**Cold start: ~2 seconds. Binary size: ~8MB Go + ~15MB Bun app.**
+The advantage over other ways of doing this such Electron or Tauri is that the application is full unmodified SvelteKit/ TypeScript and can use Bun shell etc.
 
 ## Repository Structure
 
