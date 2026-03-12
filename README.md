@@ -1,11 +1,11 @@
-# SheafLauncher Demo
+# SheafGate Demo
 
-A working demonstration of the **SheafLauncher** pattern — building desktop
+A working demonstration of the **SheafGate Launcher** pattern — building desktop
 apps with Go + Bun + SvelteKit, without Electron or Tauri.
 
-## What Is SheafLauncher?
+## What Is SheafGate?
 
-SheafLauncher is a pattern (not a framework) for turning any Bun/SvelteKit
+SheafGate is a pattern for turning any Bun/SvelteKit
 web app into a desktop application. A thin Go binary acts as the launcher:
 it spawns the Bun process, authenticates it, and opens the browser. From
 the user's perspective it behaves like a native app — double-click and go.
@@ -15,21 +15,21 @@ The advantage over other ways of doing this such Electron or Tauri is that the a
 ## Repository Structure
 
 ```
-sheaflauncherdemo/
-  sheaflauncher/              ← Go launcher (~250 lines)
+sheafgatedemo/
+  sheafgatelauncher/              ← Go launcher (~250 lines)
     cmd/launcher/
       main.go
     go.mod
-  sheafdemoengine/            ← Bun/SvelteKit demo app
+  sheafgatedemoengine/            ← Bun/SvelteKit demo app
     src/
       lib/
-        sheaflauncher/        ← auth library (copy into any app)
+        sheafgatelauncher/        ← auth library (copy into any app)
           auth.ts             ← session store, password handling
           hooks.ts            ← SvelteKit handle factory + ready signal
           launcherControl.ts  ← login / heartbeat / shutdown handlers
         config.ts             ← DEV_AUTH_BYPASS flag
       routes/
-        launcher-control/
+        sheafgatelauncher-control/
           +server.ts          ← thin re-export from library
         login/
           +page.svelte        ← fallback "use the launcher" page
@@ -79,7 +79,7 @@ is on the same port, the UUID won't match and login fails immediately.
 ### Development (no launcher, no auth)
 
 ```bash
-cd sheafdemoengine
+cd sheafgatedemoengine
 bun install
 cd ..
 make dev
@@ -88,29 +88,29 @@ make dev
 ```
 
 To develop with auth enabled, set `DEV_AUTH_BYPASS = false` in
-`sheafdemoengine/src/lib/config.ts` and use the launcher instead.
+`sheafgatedemoengine/src/lib/config.ts` and use the launcher instead.
 
 ### Production Build
 
 ```bash
-cd sheafdemoengine && bun install && cd ..
+cd sheafgatedemoengine && bun install && cd ..
 make build
 ```
 
 This produces:
 - `sheafdemo` (or `sheafdemo.exe` on Windows) — the Go launcher
-- `sheafdemoengine/build/` — the Bun app (copy alongside the launcher)
+- `sheafgatedemoengine/build/` — the Bun app (copy alongside the launcher)
 
-Run `./sheafdemo` — browser opens automatically, app is ready.
+Run `./sheafgatedemo` — browser opens automatically, app is ready.
 
-## Using SheafLauncher in Your Own App
+## Using SheafGate Launcher in Your Own App
 
 The launcher is ~250 lines of Go. To use it for a new app:
 
-1. Copy `sheaflauncher/` into your project
+1. Copy `sheafgatelauncher/` into your project
 2. Update the module name in `sheaflauncher/go.mod`
 3. Update the output binary name in your `Makefile`
-4. Copy `sheafdemoengine/src/lib/sheaflauncher/` into your SvelteKit app
+4. Copy `sheafgatedemoengine/src/lib/sheafgatelauncher/` into your SvelteKit app
 5. Add the three thin wiring files (hooks.server.ts, +server.ts, config.ts)
 6. Add the `__PKM_LOGIN_UUID__` define to your `vite.config.ts`
 7. Run `make build`
@@ -128,7 +128,7 @@ That's it. Write your SvelteKit app normally. The launcher handles the rest.
 | App stores | ✗ | ✓ | ✓ | ✗ |
 | Use system browser | ✓ | ✗ | ✗ | ✗ |
 
-SheafLauncher is the right choice when you want to write pure SvelteKit
+SheafGate Launcher is the right choice when you want to write pure SvelteKit
 without learning a native bridge API, and you're targeting desktop machines
 you control (not app stores).
 
@@ -136,4 +136,4 @@ you control (not app stores).
 
 Apache-2.0 — see [LICENSE](LICENSE)
 
-Copyright 2026 Robokeys Ltd
+Copyright 2026 Rob Deas
