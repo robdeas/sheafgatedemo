@@ -12,4 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export { GET, POST, DELETE } from '$lib/sheaflauncher/launcherControl';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+// Must use relative path not $lib alias here
+// DO NOT use $lib alias here — vite.config.ts runs before SvelteKit alias resolution
+import {sheafGateDefines} from './src/lib/sheafgate/vite-plugin';
+
+export default defineConfig({
+  plugins: [sveltekit()],
+  define: {
+    ...sheafGateDefines(),
+  }
+});

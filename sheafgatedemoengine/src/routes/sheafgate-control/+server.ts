@@ -12,13 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//
-// App-level configuration for SheafLauncher integration.
-//
-// DEV_AUTH_BYPASS:
-//   false (default) — full launcher auth required. Use for all real builds.
-//   true            — auth disabled for local development via `bun dev`.
-//
-// This file must exist. The build will fail without it, making it impossible
-// to accidentally ship an app that hasn't explicitly configured auth.
-export const DEV_AUTH_BYPASS = false;
+export { GET, POST, DELETE } from '$lib/sheafgate/launcherControl';

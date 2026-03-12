@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Build-time constant injected via vite define from sheaf-launcher-engine.env
+// Build-time constant injected via vite define from sheafgate-launcher-engine.env
 import type {Handle} from "@sveltejs/kit";
 
 declare const __PKM_LOGIN_UUID__: string;
@@ -46,6 +46,10 @@ export function setPassword(password: string): void {
   _password = password;
 }
 
+export function getPassword(): string | null {
+  return _password;
+}
+
 export function checkPassword(password: string): boolean {
   return _password !== null && password === _password;
 }
@@ -67,21 +71,21 @@ export function bootstrapPasswordFromEnv(): void {
   if (envPassword) {
     setPassword(envPassword);
     delete process.env.SHEAF_LAUNCHER_PASSWORD;
-    console.error('[sheaflauncher] password set from env');
     return;
   }
 
   const devPassword = crypto.randomUUID();
   setPassword(devPassword);
   console.error('');
-  console.error('⚠️  WARNING: SHEAF_LAUNCHER_PASSWORD not set');
+  console.error('⚠️  WARNING: SHEAFGATE_LAUNCHER_PASSWORD not set');
   console.error('⚠️  Running in DEV MODE with random password:', devPassword);
+  console.error('⚠️  UUID:', LOGIN_UUID);
   console.error('⚠️  RUN VIA LAUNCHER APPLICATION');
-  console.error('⚠️  Or set SHEAF_LAUNCHER_PASSWORD env var for production');
+  console.error('⚠️  Or set SHEAFGATE_LAUNCHER_PASSWORD env var for production');
   console.error('');
 }
 
-// src/lib/sheaflauncher/auth.ts — add this:
+// src/lib/sheafgate/auth.ts — add this:
 export function createAuthHandle(publicPaths: Set<string>): Handle {
   return async ({ event, resolve }) => {
     if (publicPaths.has(event.url.pathname)) {

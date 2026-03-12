@@ -1,4 +1,4 @@
-module github.com/robdeas/sheaflauncher
+module github.com/robdeas/sheafgatelauncher
 
 go 1.26
 

@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
-// Must use relative path — $lib alias is not available in vite config context
-import { sheafLauncherDefines } from './src/lib/sheaflauncher/vite-plugin';
-
-export default defineConfig({
-  plugins: [sveltekit()],
-  define: {
-    ...sheafLauncherDefines(),
-  }
-});
+//
+// App-level configuration for SheafGate Launcher integration.
+//
+// DEV_AUTH_BYPASS:
+//   false (default) — full launcher auth required. Use for all real builds.
+//   true            — auth disabled for local development via `bun dev`.
+//
+// This file must exist. The build will fail without it, making it impossible
+// to accidentally ship an app that hasn't explicitly configured auth.
+export const DEV_AUTH_BYPASS = false;

@@ -31,13 +31,13 @@ export function parseEnvFile(path: string): Record<string, string> {
 
 export function requireEnvValue(env: Record<string, string>, key: string): string {
     const value = env[key];
-    if (!value) throw new Error(`[sheaflauncher] ${key} is missing from sheaf-launcher-engine.env`);
+    if (!value) throw new Error(`[sheafgate] ${key} is missing from sheaf-launcher-engine.env`);
     return value;
 }
 
 // ── Vite defines ──────────────────────────────────────────────────────────────
 // Call from vite.config.ts to inject launcher config as build-time constants.
-export function sheafLauncherDefines(envFile = './sheaf-launcher-engine.env') {
+export function sheafGateDefines(envFile = './sheafgate-launcher-engine.env') {
     const env = parseEnvFile(envFile);
     return {
         __PKM_LOGIN_UUID__: JSON.stringify(requireEnvValue(env, 'SHEAF_LAUNCHER_UUID')),

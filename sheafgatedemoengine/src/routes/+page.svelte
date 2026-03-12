@@ -1,37 +1,13 @@
 <!-- Copyright 2026 Rob Deas -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-<!--
-  Demo home page — proves the full launcher stack is working:
-  - Go launcher spawned Bun
-  - Auth succeeded (session cookie set)
-  - SvelteKit is serving this page
-  - Heartbeat connection to Bun is live (shows uptime)
--->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
 
   let uptime = 0;
-  let connected = false;
   let interval: ReturnType<typeof setInterval>;
 
-  async function fetchHeartbeat() {
-    try {
-      const res = await fetch('/launcher-control', { method: 'POST' });
-      if (res.ok) {
-        const data = await res.json();
-        uptime = data.uptime ?? 0;
-        connected = true;
-      } else {
-        connected = false;
-      }
-    } catch {
-      connected = false;
-    }
-  }
-
   onMount(() => {
-    fetchHeartbeat();
-    interval = setInterval(fetchHeartbeat, 5000);
+    interval = setInterval(() => { uptime++; }, 1000);
   });
 
   onDestroy(() => clearInterval(interval));
@@ -51,22 +27,12 @@
   <div class="card">
     <div class="icon">◈</div>
     <h1>SheafDemo</h1>
-    <p class="subtitle">SvelteKit + Bun running via SheafLauncher</p>
+    <p class="subtitle">SvelteKit + Bun running via SheafGate Launcher</p>
 
     <div class="status">
       <div class="row">
-        <span class="label">Launcher</span>
-        <span class="value {connected ? 'ok' : 'warn'}">
-          {connected ? '● Connected' : '○ Waiting...'}
-        </span>
-      </div>
-      <div class="row">
         <span class="label">Uptime</span>
         <span class="value">{formatUptime(uptime)}</span>
-      </div>
-      <div class="row">
-        <span class="label">Runtime</span>
-        <span class="value">Bun + SvelteKit</span>
       </div>
       <div class="row">
         <span class="label">Auth</span>
@@ -81,7 +47,7 @@
     </p>
 
     <div class="links">
-      <a href="https://github.com/robdeas/sheaflauncherdemo" target="_blank">
+      <a href="https://github.com/robdeas/sheafgatedemo" target="_blank">
         View source on GitHub
       </a>
     </div>
@@ -158,8 +124,7 @@
 
   .label { color: #444; }
   .value { color: #bbb; }
-  .value.ok   { color: #4ade80; }
-  .value.warn { color: #facc15; }
+  .value.ok { color: #4ade80; }
 
   .note {
     font-size: 0.75rem;

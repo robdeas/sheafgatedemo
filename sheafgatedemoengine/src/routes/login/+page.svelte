@@ -6,7 +6,7 @@
   There is no login form here — authentication only happens via the launcher.
 -->
 <script>
-  import ManualLoginPage from '$lib/sheaflauncher/ManualLoginPage.svelte';
+  import ManualLoginPage from '$lib/sheafgate/ManualLoginPage.svelte';
 </script>
 
 <ManualLoginPage />
